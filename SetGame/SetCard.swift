@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct SetCard: Equatable {
+struct SetCard: Equatable, Identifiable {
+    let id: UUID = UUID()
     let number: Int
     let shape: String
     let shading: String
