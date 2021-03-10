@@ -44,5 +44,4 @@ struct SetCard: Equatable {
         
         static var all: [Color] = [Color.red, Color.green, Color.purple]
     }
-    
 }
