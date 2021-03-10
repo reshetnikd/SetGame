@@ -20,14 +20,7 @@ struct Grid<Item, ItemView>: View where Item: Identifiable, ItemView: View {
         GeometryReader { geometry in
             ForEach(items) { item in
                 let layout = GridLayout(itemCount: items.count, nearAspectRatio: 2/3, in: geometry.size)
-                let index = { () -> Int? in
-                    for index in 0..<items.count {
-                        if items[index].id == item.id {
-                            return index
-                        }
-                    }
-                    return nil
-                }()!
+                let index = items.firstIndex(matching: item)!
                 viewForItem(item)
                     .frame(width: layout.itemSize.width, height: layout.itemSize.height)
                     .position(layout.location(ofItemAt: index))

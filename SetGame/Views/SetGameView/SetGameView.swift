@@ -18,7 +18,6 @@ struct SetGameView: View {
             Grid(viewModel.dealt) { card in
                 CardView(content: card)
                     .onTapGesture {
-                        viewModel.selected.append(card)
                         viewModel.choose(card)
                     }
                     .aspectRatio(2/3, contentMode: .fit)
