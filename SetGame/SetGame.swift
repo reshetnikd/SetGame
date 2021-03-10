@@ -13,9 +13,9 @@
 import Foundation
 
 struct SetGame {
-    var playingSetCardDeck: [SetCard] = []
-    var selectedCards: [SetCard] = []
-    var matchedCards: [SetCard] = []
+    private var playingSetCardDeck: [SetCard] = []
+    private var selectedCards: [SetCard] = []
+    private var matchedCards: [SetCard] = []
     
     /// Checking if selected cards are match according to game of Set rules.
     mutating func checkSetCards(from selected: [SetCard]) {
