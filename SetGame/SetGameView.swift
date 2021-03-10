@@ -9,28 +9,57 @@ import SwiftUI
 
 struct SetGameView: View {
     @ObservedObject var viewModel: SetGameViewModel
-    @State var cardsOnScreen: [SetCard] = []
     
     var body: some View {
-        Grid(cardsOnScreen) { card in
-            CardView(card: card)
-        }
-        .onAppear(perform: {
-            for _ in 1...12 {
-                cardsOnScreen.append(viewModel.deck.removeFirst())
+        Group {
+            Button("New Game") {
+                startNewGame()
             }
-        })
+            Grid(viewModel.dealt) { card in
+                CardView(content: card)
+                    .onTapGesture {
+                        viewModel.selected.append(card)
+                        viewModel.choose(card)
+                    }
+                    .aspectRatio(2/3, contentMode: .fit)
+            }
+            .onAppear {
+                startNewGame()
+            }
+            Button("Deal") {
+                viewModel.deal()
+            }
+        }
+    }
+    
+    private func startNewGame() {
+        withAnimation {
+            viewModel.restartGame()
+            for _ in 1...12 {
+                viewModel.dealt.append(viewModel.deck.removeFirst())
+            }
+        }
     }
 }
 
 struct CardView: View {
-    var card: SetCard
+    var content: SetCard
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(lineWidth: 2)
-            Text("This is Set card with \(card.number) \(card.color) \(card.shading) \(card.shape)'s.")
+            if content.status == SetCard.Status.selected.rawValue {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.white)
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(lineWidth: 8)
+                Text("This is Set card with \(content.number) \(content.color) \(content.shading) \(content.shape)'s.")
+            } else {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.white)
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(lineWidth: 2)
+                Text("This is Set card with \(content.number) \(content.color) \(content.shading) \(content.shape)'s.")
+            }
         }
         .padding(5)
     }

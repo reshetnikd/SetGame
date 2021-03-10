@@ -16,11 +16,27 @@ struct SetGame {
     var playingSetCardDeck: [SetCard] = []
     var selectedCards: [SetCard] = []
     var matchedCards: [SetCard] = []
+    var dealtCards: [SetCard] = []
+    
+    /// Select chosen card.
+    mutating func choose(_ card: SetCard) {
+        if let chosenIndex = { () -> Int? in
+            for index in 0..<dealtCards.count {
+                if dealtCards[index].id == card.id {
+                    return index
+                }
+            }
+            return nil
+        }() {
+            dealtCards[chosenIndex].status = SetCard.Status.selected.rawValue
+        }
+    }
     
     /// Checking if selected cards are match according to game of Set rules.
     mutating func checkSetCards(from selected: [SetCard]) {
         if selected.count == 3 {
-            if (((selected[0].number == selected[1].number) && (selected[1].number == selected[2].number)) || ((selected[0].number != selected[1].number) && (selected[0].number != selected[2].number) && (selected[1].number != selected[2].number))) && (((selected[0].shading == selected[1].shading) && (selected[1].shading == selected[2].shading)) || ((selected[0].shading != selected[1].shading) && (selected[0].shading != selected[2].shading) && (selected[1].shading != selected[2].shading))) && (((selected[0].color == selected[1].color) && (selected[1].color == selected[2].color)) || ((selected[0].color != selected[1].color) && (selected[0].color != selected[2].color) && (selected[1].color != selected[2].color))) && (((selected[0].shape == selected[1].shape) && (selected[1].shape == selected[2].shape)) || ((selected[0].shape != selected[1].shape) && (selected[0].shape != selected[2].shape) && (selected[1].shape != selected[2].shape))) {
+//            if (((selected[0].number == selected[1].number) && (selected[1].number == selected[2].number)) || ((selected[0].number != selected[1].number) && (selected[0].number != selected[2].number) && (selected[1].number != selected[2].number))) && (((selected[0].shading == selected[1].shading) && (selected[1].shading == selected[2].shading)) || ((selected[0].shading != selected[1].shading) && (selected[0].shading != selected[2].shading) && (selected[1].shading != selected[2].shading))) && (((selected[0].color == selected[1].color) && (selected[1].color == selected[2].color)) || ((selected[0].color != selected[1].color) && (selected[0].color != selected[2].color) && (selected[1].color != selected[2].color))) && (((selected[0].shape == selected[1].shape) && (selected[1].shape == selected[2].shape)) || ((selected[0].shape != selected[1].shape) && (selected[0].shape != selected[2].shape) && (selected[1].shape != selected[2].shape))) {
+            if true {
                 for index in selected.indices {
                     matchedCards.append(selected[index])
                 }
@@ -29,7 +45,7 @@ struct SetGame {
     }
     
     /// Replace the selected cards if they are match or add 3 cards to the game.
-    mutating func dealSetCard() -> [SetCard] {
+    mutating func dealSetCard() {
         var deal: [SetCard] = []
         
         if selectedCards.count == 3, !playingSetCardDeck.isEmpty {
@@ -46,41 +62,7 @@ struct SetGame {
             }
         }
         
-        return deal
-    }
-    
-    /// Search for cards on screen, of which the Set is consist.
-    mutating func searchForSet(on screen: [SetCard]) -> [Int: [SetCard]] {
-        let previouslyMatched: [SetCard] = matchedCards
-        var mark: Int = 0
-        var counter: Int = matchedCards.count
-        var found: [Int: [SetCard]] = [:]
-        var temp: [SetCard] = []
-        
-        for index in screen.indices {
-            temp.append(screen[index])
-            for index in 1...(screen.count - 1) {
-                if !temp.contains(screen[index]) {
-                    temp.append(screen[index])
-                    for index in 2...(screen.count - 1) {
-                        if !temp.contains(screen[index]) {
-                            temp.append(screen[index])
-                            checkSetCards(from: temp)
-                            if counter < matchedCards.count {
-                                found[mark] = Array(matchedCards.dropFirst(counter))
-                                counter = matchedCards.count
-                                mark += 1
-                            }
-                            temp.removeLast()
-                        }
-                    }
-                    temp.removeLast()
-                }
-            }
-            temp.removeLast()
-        }
-        matchedCards = previouslyMatched
-        return found
+        dealtCards += deal
     }
     
     /// Create deck of 81 SetCard's.
@@ -89,7 +71,7 @@ struct SetGame {
             for shape in SetCard.Shape.all {
                 for shade in SetCard.Shading.all {
                     for color in SetCard.Color.all {
-                        playingSetCardDeck.append(SetCard(number: number.rawValue, shape: shape.rawValue, shading: shade.rawValue, color: color.rawValue))
+                        playingSetCardDeck.append(SetCard(number: number.rawValue, shape: shape.rawValue, shading: shade.rawValue, color: color.rawValue, status: SetCard.Status.unselected.rawValue))
                     }
                 }
             }

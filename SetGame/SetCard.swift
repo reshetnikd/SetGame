@@ -13,6 +13,14 @@ struct SetCard: Equatable, Identifiable {
     let shape: String
     let shading: String
     let color: String
+    var status: String
+    
+    enum Status: String {
+        case unselected
+        case selected
+        case matched
+        case mismatched
+    }
     
     enum Number: Int {
         case one = 1
