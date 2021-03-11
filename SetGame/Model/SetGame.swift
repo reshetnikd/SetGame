@@ -23,7 +23,7 @@ struct SetGame {
     mutating func choose(_ card: SetCard) {
         if let chosenIndex = dealtCards.firstIndex(matching: card) {
             if selectedCards.count == 3 {
-                if isMatchedAsSet && selectedCards.contains(card) {
+                if isMatchedAsSet && card.status == SetCard.Status.matched.rawValue {
                     // No card should be selected.
                     return
                 } else {
@@ -32,7 +32,9 @@ struct SetGame {
                     } else {
                         // Deselect 3 non-matching cards.
                         for index in selectedCards.indices {
-                            dealtCards[index].status = SetCard.Status.unselected.rawValue
+                            if let deselectedIndex = dealtCards.firstIndex(matching: selectedCards[index]) {
+                                dealtCards[deselectedIndex].status = SetCard.Status.unselected.rawValue
+                            }
                         }
                     }
                     // Select chosen card.
@@ -42,11 +44,11 @@ struct SetGame {
                 }
             } else {
                 // Deselect currently selected card either select new one.
-                if selectedCards.contains(card) {
+                if card.status == SetCard.Status.selected.rawValue {
+                    var tempCard = card
+                    tempCard.status = SetCard.Status.unselected.rawValue
                     dealtCards[chosenIndex].status = SetCard.Status.unselected.rawValue
-                    selectedCards.removeAll { (selectedCard: SetCard) -> Bool in
-                        return selectedCard == card
-                    }
+                    selectedCards.removeAll { $0 == tempCard }
                 } else {
                     selectedCards.append(card)
                     
@@ -55,20 +57,23 @@ struct SetGame {
                         
                         for index in selectedCards.indices {
                             if matchedCards.contains(selectedCards[index]) {
-                                dealtCards[index].status = SetCard.Status.matched.rawValue
-                                isMatchedAsSet = true
-                                
-                                if playingSetCardDeck.isEmpty {
-                                    // Remove matched cards if no more cards in Playing Deck.
-                                    selectedCards.remove(at: index)
+                                if let matchedIndex = dealtCards.firstIndex(matching: selectedCards[index]) {
+                                    dealtCards[matchedIndex].status = SetCard.Status.matched.rawValue
+                                    isMatchedAsSet = true
+                                    if playingSetCardDeck.isEmpty {
+                                        // Remove matched cards if no more cards in Playing Deck.
+                                        dealtCards.remove(at: matchedIndex)
+                                    }
                                 }
                             } else {
-                                dealtCards[index].status = SetCard.Status.mismatched.rawValue
-                                isMatchedAsSet = false
+                                if let mismatchedIndex = dealtCards.firstIndex(matching: selectedCards[index]) {
+                                    dealtCards[mismatchedIndex].status = SetCard.Status.mismatched.rawValue
+                                    isMatchedAsSet = false
+                                }
                             }
                         }
                     } else {
-                        // Visually indicate selected card.
+                        // Select chosen card.
                         dealtCards[chosenIndex].status = SetCard.Status.selected.rawValue
                     }
                 }
@@ -94,7 +99,12 @@ struct SetGame {
         if selectedCards.count == 3, !playingSetCardDeck.isEmpty {
             for index in selectedCards.indices {
                 if matchedCards.contains(selectedCards[index]) {
-                    selectedCards[index] = playingSetCardDeck.removeFirst()
+                    if let matchedIndex = dealtCards.firstIndex(matching: selectedCards[index]) {
+                        dealtCards[matchedIndex] = playingSetCardDeck.removeFirst()
+                        isMatchedAsSet = false
+                    } else {
+                        deal.append(playingSetCardDeck.removeFirst())
+                    }
                 } else {
                     deal.append(playingSetCardDeck.removeFirst())
                 }
