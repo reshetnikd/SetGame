@@ -33,11 +33,9 @@ struct SetGameView: View {
     }
     
     private func startNewGame() {
-        withAnimation {
-            viewModel.restartGame()
-            for _ in 1...12 {
-                viewModel.dealt.append(viewModel.deck.removeFirst())
-            }
+        viewModel.restartGame()
+        for _ in 1...12 {
+            viewModel.dealt.append(viewModel.deck.removeFirst())
         }
     }
 }
