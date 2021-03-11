@@ -48,46 +48,31 @@ struct CardView: View {
     var body: some View {
         ZStack {
             switch content.status {
-                case SetCard.Status.selected.rawValue:
+                case .selected:
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.white)
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(lineWidth: 4)
-                    Text("This is Set card with \(content.number) \(content.color) \(content.shading) \(content.shape)'s.")
-                case SetCard.Status.unselected.rawValue:
+                    Text("This is Set card with \(content.number.rawValue) \(content.color.rawValue) \(content.shading.rawValue) \(content.shape.rawValue)'s.")
+                case .unselected:
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.white)
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(lineWidth: 2)
-                    Text("This is Set card with \(content.number) \(content.color) \(content.shading) \(content.shape)'s.")
-                case SetCard.Status.matched.rawValue:
+                    Text("This is Set card with \(content.number.rawValue) \(content.color.rawValue) \(content.shading.rawValue) \(content.shape.rawValue)'s.")
+                case .matched:
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.white)
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.green, lineWidth: 4)
-                    Text("This is Set card with \(content.number) \(content.color) \(content.shading) \(content.shape)'s.")
-                case SetCard.Status.mismatched.rawValue:
+                    Text("This is Set card with \(content.number.rawValue) \(content.color.rawValue) \(content.shading.rawValue) \(content.shape.rawValue)'s.")
+                case .mismatched:
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.white)
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.red, lineWidth: 4)
-                    Text("This is Set card with \(content.number) \(content.color) \(content.shading) \(content.shape)'s.")
-                default:
-                    EmptyView()
+                    Text("This is Set card with \(content.number.rawValue) \(content.color.rawValue) \(content.shading.rawValue) \(content.shape.rawValue)'s.")
             }
-//            if content.status == SetCard.Status.selected.rawValue {
-//                RoundedRectangle(cornerRadius: 10)
-//                    .fill(Color.white)
-//                RoundedRectangle(cornerRadius: 10)
-//                    .stroke(lineWidth: 8)
-//                Text("This is Set card with \(content.number) \(content.color) \(content.shading) \(content.shape)'s.")
-//            } else {
-//                RoundedRectangle(cornerRadius: 10)
-//                    .fill(Color.white)
-//                RoundedRectangle(cornerRadius: 10)
-//                    .stroke(lineWidth: 2)
-//                Text("This is Set card with \(content.number) \(content.color) \(content.shading) \(content.shape)'s.")
-//            }
         }
         .padding(5)
     }

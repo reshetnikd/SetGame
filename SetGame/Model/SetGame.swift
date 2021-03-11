@@ -23,7 +23,7 @@ struct SetGame {
     mutating func choose(_ card: SetCard) {
         if let chosenIndex = dealtCards.firstIndex(matching: card) {
             if selectedCards.count == 3 {
-                if isMatchedAsSet && card.status == SetCard.Status.matched.rawValue {
+                if isMatchedAsSet && card.status == .matched {
                     // No card should be selected.
                     return
                 } else {
@@ -33,21 +33,21 @@ struct SetGame {
                         // Deselect 3 non-matching cards.
                         for index in selectedCards.indices {
                             if let deselectedIndex = dealtCards.firstIndex(matching: selectedCards[index]) {
-                                dealtCards[deselectedIndex].status = SetCard.Status.unselected.rawValue
+                                dealtCards[deselectedIndex].status = .unselected
                             }
                         }
                     }
                     // Select chosen card.
                     selectedCards.removeAll()
                     selectedCards.append(card)
-                    dealtCards[chosenIndex].status = SetCard.Status.selected.rawValue
+                    dealtCards[chosenIndex].status = .selected
                 }
             } else {
                 // Deselect currently selected card either select new one.
-                if card.status == SetCard.Status.selected.rawValue {
+                if card.status == .selected {
                     var tempCard = card
-                    tempCard.status = SetCard.Status.unselected.rawValue
-                    dealtCards[chosenIndex].status = SetCard.Status.unselected.rawValue
+                    tempCard.status = .unselected
+                    dealtCards[chosenIndex].status = .unselected
                     selectedCards.removeAll { $0 == tempCard }
                 } else {
                     selectedCards.append(card)
@@ -58,7 +58,7 @@ struct SetGame {
                         for index in selectedCards.indices {
                             if matchedCards.contains(selectedCards[index]) {
                                 if let matchedIndex = dealtCards.firstIndex(matching: selectedCards[index]) {
-                                    dealtCards[matchedIndex].status = SetCard.Status.matched.rawValue
+                                    dealtCards[matchedIndex].status = .matched
                                     isMatchedAsSet = true
                                     if playingSetCardDeck.isEmpty {
                                         // Remove matched cards if no more cards in Playing Deck.
@@ -67,14 +67,14 @@ struct SetGame {
                                 }
                             } else {
                                 if let mismatchedIndex = dealtCards.firstIndex(matching: selectedCards[index]) {
-                                    dealtCards[mismatchedIndex].status = SetCard.Status.mismatched.rawValue
+                                    dealtCards[mismatchedIndex].status = .mismatched
                                     isMatchedAsSet = false
                                 }
                             }
                         }
                     } else {
                         // Select chosen card.
-                        dealtCards[chosenIndex].status = SetCard.Status.selected.rawValue
+                        dealtCards[chosenIndex].status = .selected
                     }
                 }
             }
@@ -124,7 +124,7 @@ struct SetGame {
             for shape in SetCard.Shape.all {
                 for shade in SetCard.Shading.all {
                     for color in SetCard.Color.all {
-                        playingSetCardDeck.append(SetCard(number: number.rawValue, shape: shape.rawValue, shading: shade.rawValue, color: color.rawValue, status: SetCard.Status.unselected.rawValue))
+                        playingSetCardDeck.append(SetCard(number: number, shape: shape, shading: shade, color: color, status: .unselected))
                     }
                 }
             }

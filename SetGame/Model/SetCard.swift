@@ -9,11 +9,11 @@ import Foundation
 
 struct SetCard: Equatable, Identifiable {
     let id: UUID = UUID()
-    let number: Int
-    let shape: String
-    let shading: String
-    let color: String
-    var status: String
+    let number: Number
+    let shape: Shape
+    let shading: Shading
+    let color: Color
+    var status: Status
     
     enum Status: String {
         case unselected
