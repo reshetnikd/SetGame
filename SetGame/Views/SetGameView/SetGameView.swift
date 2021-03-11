@@ -25,9 +25,10 @@ struct SetGameView: View {
             .onAppear {
                 startNewGame()
             }
-            Button("Deal") {
+            Button("Deal More Cards") {
                 viewModel.deal()
             }
+            .disabled(viewModel.deck.isEmpty)
         }
     }
     
