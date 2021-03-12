@@ -13,20 +13,29 @@ struct SetGameView: View {
     var body: some View {
         Group {
             Button("New Game") {
-                startNewGame()
+                withAnimation(.easeInOut) {
+                    startNewGame()
+                }
             }
             Grid(viewModel.dealt) { card in
                 CardView(content: card)
+                    .transition(.offset(CGSize(width: Int.random(in: 256...512), height: Int.random(in: 256...512))))
                     .onTapGesture {
-                        viewModel.choose(card)
+                        withAnimation(.easeInOut) {
+                            viewModel.choose(card)
+                        }
                     }
                     .aspectRatio(2/3, contentMode: .fit)
             }
             .onAppear {
-                startNewGame()
+                withAnimation(.easeInOut) {
+                    startNewGame()
+                }
             }
             Button("Deal More Cards") {
-                viewModel.deal()
+                withAnimation(.easeInOut) {
+                    viewModel.deal()
+                }
             }
             .disabled(viewModel.deck.isEmpty)
         }
