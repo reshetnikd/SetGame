@@ -11,9 +11,6 @@ struct SquiggleShape: Shape {
     
     // MARK: - Drawing Constants
     
-    private let ident: CGFloat = 2.0
-    private let widthParameter: CGFloat = 0.6
-    private let heightParameter: CGFloat = 0.25
     private let widthDeviation: CGFloat = 0.1
     private let heightDeviation: CGFloat = 0.2
     
