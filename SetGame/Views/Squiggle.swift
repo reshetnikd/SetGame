@@ -1,5 +1,5 @@
 //
-//  SquiggleShape.swift
+//  Squiggle.swift
 //  SetGame
 //
 //  Created by Dmitry Reshetnik on 15.03.2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SquiggleShape: Shape {
+struct Squiggle: Shape {
     
     // MARK: - Drawing Constants
     
@@ -39,6 +39,6 @@ struct SquiggleShape: Shape {
 
 struct SquiggleShape_Previews: PreviewProvider {
     static var previews: some View {
-        SquiggleShape()
+        Squiggle()
     }
 }

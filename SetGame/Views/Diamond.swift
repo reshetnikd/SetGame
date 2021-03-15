@@ -1,5 +1,5 @@
 //
-//  DiamondShape.swift
+//  Diamond.swift
 //  SetGame
 //
 //  Created by Dmitry Reshetnik on 15.03.2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DiamondShape: Shape {
+struct Diamond: Shape {
     func path(in rect: CGRect) -> Path {
         let diamond: UIBezierPath = UIBezierPath()
         diamond.move(to: CGPoint(x: rect.midX, y: rect.minY))
@@ -21,6 +21,6 @@ struct DiamondShape: Shape {
 
 struct DiamondShape_Previews: PreviewProvider {
     static var previews: some View {
-        DiamondShape()
+        Diamond()
     }
 }
