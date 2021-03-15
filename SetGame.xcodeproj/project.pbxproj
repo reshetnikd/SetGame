@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		354F065525F955030017F47D /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354F065425F955030017F47D /* Array+Extensions.swift */; };
+		3573499025FFA25600927C2E /* DiamondShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3573498F25FFA25600927C2E /* DiamondShape.swift */; };
 		35C2250A25F8FFEA007CA849 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2250925F8FFEA007CA849 /* SetCard.swift */; };
 		35C2250D25F9016D007CA849 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2250C25F9016D007CA849 /* SetGame.swift */; };
 		35C2251025F901C6007CA849 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C2250F25F901C6007CA849 /* GridLayout.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		354F065425F955030017F47D /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		3573498F25FFA25600927C2E /* DiamondShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondShape.swift; sourceTree = "<group>"; };
 		35C2250925F8FFEA007CA849 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
 		35C2250C25F9016D007CA849 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		35C2250F25F901C6007CA849 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			children = (
 				354F065825F956750017F47D /* GridView */,
 				354F065725F9564B0017F47D /* SetGameView */,
+				3573498F25FFA25600927C2E /* DiamondShape.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			files = (
 				35DC791A25F795E600673E2C /* AppDelegate.swift in Sources */,
 				354F065525F955030017F47D /* Array+Extensions.swift in Sources */,
+				3573499025FFA25600927C2E /* DiamondShape.swift in Sources */,
 				35DC791C25F795E600673E2C /* SceneDelegate.swift in Sources */,
 				35C2251A25F90BE2007CA849 /* SetGameView.swift in Sources */,
 				35C2250D25F9016D007CA849 /* SetGame.swift in Sources */,
