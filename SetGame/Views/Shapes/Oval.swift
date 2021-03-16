@@ -8,23 +8,10 @@
 import SwiftUI
 
 struct Oval: Shape {
-    
-    // MARK: - Drawing Constants
-    
-    private let startAngel: Angle = Angle(degrees: 0-90)
-    private let endAngel: Angle = Angle(degrees: 180-90)
-    
     func path(in rect: CGRect) -> Path {
-        var oval: Path = Path()
+        let oval: Path = Capsule().path(in: rect)
         
-        if rect.height > rect.width {
-            return Capsule().path(in: rect)
-        } else {
-            oval.addArc(center: CGPoint(x: rect.midX - rect.width/4, y: rect.midY), radius: rect.height/3, startAngle: startAngel, endAngle: endAngel, clockwise: true)
-            oval.addArc(center: CGPoint(x: rect.midX + rect.width/4, y: rect.midY), radius: rect.height/3, startAngle: endAngel, endAngle: startAngel, clockwise: true)
-            oval.closeSubpath()
-            return oval
-        }
+        return oval
     }
 }
 
