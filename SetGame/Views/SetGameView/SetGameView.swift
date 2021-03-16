@@ -52,45 +52,47 @@ struct SetGameView: View {
 struct CardView: View {
     var content: SetCard
     
+    // MARK: - Layout Constants
+    
+    private let paddingLength: CGFloat = 5.0
+    private let radius: CGFloat = 10.0
+    private let width: CGFloat = 4.0
+    
     
     var body: some View {
         ZStack {
             switch content.status {
                 case .selected:
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: radius)
                         .fill(Color.white)
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(lineWidth: 4)
+                    RoundedRectangle(cornerRadius: radius)
+                        .stroke(lineWidth: width)
                     CardSymbol(content: content)
-                        .padding()
-//                    Text("This is Set card with \(content.number.rawValue) \(content.color.rawValue) \(content.shading.rawValue) \(content.shape.rawValue)'s.")
+                        .padding(paddingLength)
                 case .unselected:
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: radius)
                         .fill(Color.white)
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(lineWidth: 2)
+                    RoundedRectangle(cornerRadius: radius)
+                        .stroke(lineWidth: width/2)
                     CardSymbol(content: content)
-                        .padding()
-//                    Text("This is Set card with \(content.number.rawValue) \(content.color.rawValue) \(content.shading.rawValue) \(content.shape.rawValue)'s.")
+                        .padding(paddingLength)
                 case .matched:
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: radius)
                         .fill(Color.white)
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.green, lineWidth: 4)
+                    RoundedRectangle(cornerRadius: radius)
+                        .stroke(Color.green, lineWidth: width)
                     CardSymbol(content: content)
-                        .padding()
-//                    Text("This is Set card with \(content.number.rawValue) \(content.color.rawValue) \(content.shading.rawValue) \(content.shape.rawValue)'s.")
+                        .padding(paddingLength)
                 case .mismatched:
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: radius)
                         .fill(Color.white)
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.red, lineWidth: 4)
+                    RoundedRectangle(cornerRadius: radius)
+                        .stroke(Color.red, lineWidth: width)
                     CardSymbol(content: content)
-                        .padding()
-//                    Text("This is Set card with \(content.number.rawValue) \(content.color.rawValue) \(content.shading.rawValue) \(content.shape.rawValue)'s.")
+                        .padding(paddingLength)
             }
         }
-        .padding(5)
+        .padding(paddingLength)
     }
 }
 
@@ -136,7 +138,7 @@ struct CardSymbol: View {
             case .diamond:
                 return AnyShape(Diamond())
             case .oval:
-                return AnyShape(Oval())
+                return AnyShape(Capsule())
             case .squiggle:
                 return AnyShape(Squiggle())
         }
