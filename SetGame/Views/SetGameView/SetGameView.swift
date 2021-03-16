@@ -138,7 +138,7 @@ struct CardSymbol: View {
             case .diamond:
                 return AnyShape(Diamond())
             case .oval:
-                return AnyShape(Capsule())
+                return AnyShape(Oval())
             case .squiggle:
                 return AnyShape(Squiggle())
         }

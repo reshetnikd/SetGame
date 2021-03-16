@@ -15,24 +15,24 @@ struct Squiggle: Shape {
     private let heightDeviation: CGFloat = 0.2
     
     func path(in rect: CGRect) -> Path {
-        let squiggle: UIBezierPath = UIBezierPath()
+        var squiggle: Path = Path()
         squiggle.move(to: CGPoint(x: rect.minX, y: rect.midY))
         squiggle.addCurve(to: CGPoint(x: rect.minX + rect.size.width * 1/2, y: rect.minY + rect.size.height/8),
-                          controlPoint1: CGPoint(x: rect.minX, y: rect.minY),
-                          controlPoint2: CGPoint(x: rect.minX + rect.size.width * 1/2 - (rect.size.width * widthDeviation), y: rect.minY + rect.size.height/8 - (rect.size.height * heightDeviation)))
+                          control1: CGPoint(x: rect.minX, y: rect.minY),
+                          control2: CGPoint(x: rect.minX + rect.size.width * 1/2 - (rect.size.width * widthDeviation), y: rect.minY + rect.size.height/8 - (rect.size.height * heightDeviation)))
         squiggle.addCurve(to: CGPoint(x: rect.minX + rect.size.width * 4/5, y: rect.minY + rect.size.height/8),
-                          controlPoint1: CGPoint(x: rect.minX + rect.size.width * 1/2 + (rect.size.width * widthDeviation), y: rect.minY + rect.size.height/8 + (rect.size.height * heightDeviation)),
-                          controlPoint2: CGPoint(x: rect.minX + rect.size.width * 4/5 - (rect.size.width * widthDeviation), y: rect.minY + rect.size.height/8 + (rect.size.height * heightDeviation)))
+                          control1: CGPoint(x: rect.minX + rect.size.width * 1/2 + (rect.size.width * widthDeviation), y: rect.minY + rect.size.height/8 + (rect.size.height * heightDeviation)),
+                          control2: CGPoint(x: rect.minX + rect.size.width * 4/5 - (rect.size.width * widthDeviation), y: rect.minY + rect.size.height/8 + (rect.size.height * heightDeviation)))
         squiggle.addCurve(to: CGPoint(x: rect.maxX, y: rect.minY + rect.size.height/2),
-                          controlPoint1: CGPoint(x: rect.minX + rect.size.width * 4/5 + (rect.size.width * widthDeviation), y: rect.minY + rect.size.height/8 - (rect.size.height * heightDeviation)),
-                          controlPoint2: CGPoint(x: rect.maxX, y: rect.minY))
+                          control1: CGPoint(x: rect.minX + rect.size.width * 4/5 + (rect.size.width * widthDeviation), y: rect.minY + rect.size.height/8 - (rect.size.height * heightDeviation)),
+                          control2: CGPoint(x: rect.maxX, y: rect.minY))
         // Create rotated copy of squiggle path and add it to original path.
-        let path: UIBezierPath = UIBezierPath(cgPath: squiggle.cgPath)
-        path.apply(CGAffineTransform.identity.rotated(by: CGFloat.pi))
-        path.apply(CGAffineTransform.identity.translatedBy(x: rect.width, y: rect.height))
+        var path: Path = squiggle
+        path = path.applying(CGAffineTransform.identity.rotated(by: CGFloat.pi))
+        path = path.applying(CGAffineTransform.identity.translatedBy(x: rect.width, y: rect.height))
         squiggle.move(to: CGPoint(x: rect.minX, y: rect.midY))
-        squiggle.append(path)
-        return Path(squiggle.cgPath)
+        squiggle.addPath(path)
+        return squiggle
     }
     
 }
@@ -40,5 +40,6 @@ struct Squiggle: Shape {
 struct SquiggleShape_Previews: PreviewProvider {
     static var previews: some View {
         Squiggle()
+            .padding()
     }
 }
