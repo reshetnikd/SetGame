@@ -11,7 +11,7 @@ struct SetGameView: View {
     @ObservedObject var viewModel: SetGameViewModel
     
     var body: some View {
-        Group {
+        VStack {
             Button("New Game") {
                 withAnimation(.easeInOut) {
                     startNewGame()
@@ -154,8 +154,8 @@ struct CardSymbol: View {
             case .one:
                 if isStripped {
                      usedSymbol
-                        .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                        .mask(Stripes().stroke(usedColor).frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                        .stroke(usedColor)
+                        .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
                 } else if isSolid {
                     usedSymbol.fill(usedColor)
                 } else {
@@ -165,11 +165,11 @@ struct CardSymbol: View {
                 if isStripped {
                     VStack {
                         usedSymbol
-                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                            .mask(Stripes().stroke(usedColor).frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .stroke(usedColor)
+                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
                         usedSymbol
-                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                            .mask(Stripes().stroke(usedColor).frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .stroke(usedColor)
+                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
                     }
                 } else if isSolid {
                     VStack {
@@ -190,14 +190,14 @@ struct CardSymbol: View {
                 if isStripped {
                     VStack {
                         usedSymbol
-                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                            .mask(Stripes().stroke(usedColor).frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .stroke(usedColor)
+                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
                         usedSymbol
-                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                            .mask(Stripes().stroke(usedColor).frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .stroke(usedColor)
+                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
                         usedSymbol
-                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                            .mask(Stripes().stroke(usedColor).frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .stroke(usedColor)
+                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
                     }
                 } else if isSolid {
                     VStack {
