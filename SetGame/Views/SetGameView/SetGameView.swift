@@ -112,6 +112,12 @@ struct CardSymbol: View {
         }
     }
     
+    // MARK: - Drawing Constants
+    
+    let stripedValue: Double = 0.33
+    
+    // MARK: - Content Setup
+    
     let content: SetCard
     
     var isStripped: Bool {
@@ -156,8 +162,7 @@ struct CardSymbol: View {
             case .one:
                 if isStripped {
                      usedSymbol
-                        .stroke(usedColor)
-                        .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                        .fill(usedColor.opacity(stripedValue))
                 } else if isSolid {
                     usedSymbol.fill(usedColor)
                 } else {
@@ -167,11 +172,9 @@ struct CardSymbol: View {
                 if isStripped {
                     VStack {
                         usedSymbol
-                            .stroke(usedColor)
-                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .fill(usedColor.opacity(stripedValue))
                         usedSymbol
-                            .stroke(usedColor)
-                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .fill(usedColor.opacity(stripedValue))
                     }
                 } else if isSolid {
                     VStack {
@@ -192,14 +195,11 @@ struct CardSymbol: View {
                 if isStripped {
                     VStack {
                         usedSymbol
-                            .stroke(usedColor)
-                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .fill(usedColor.opacity(stripedValue))
                         usedSymbol
-                            .stroke(usedColor)
-                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .fill(usedColor.opacity(stripedValue))
                         usedSymbol
-                            .stroke(usedColor)
-                            .mask(Stripes().stroke().frame(width: geometry.size.width, height: geometry.size.height, alignment: .center))
+                            .fill(usedColor.opacity(stripedValue))
                     }
                 } else if isSolid {
                     VStack {
